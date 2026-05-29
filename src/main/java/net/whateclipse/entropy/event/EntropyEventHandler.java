@@ -32,7 +32,7 @@ public class EntropyEventHandler {
         entity.hasImpulse = true;
         var currentMovement = entity.getDeltaMovement();
 
-        entity.setDeltaMovement(entity.getDeltaMovement().add(currentMovement.x, 0.1D, currentMovement.z));
+        entity.setDeltaMovement(entity.getDeltaMovement().add(currentMovement.x, 0.0D, currentMovement.z));
 
         entity.removeTag("entropy_inverted_knockback");
     }
