@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "entropy:item/scythe_held"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "entropy:item/scythe_inv"
+    },
+    "ground": {
+      "parent": "entropy:item/scythe_inv"
+    },
+    "fixed": {
+      "parent": "entropy:item/scythe_inv"
+    }
+  }
+}
