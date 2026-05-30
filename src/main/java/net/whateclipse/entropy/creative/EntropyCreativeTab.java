@@ -15,8 +15,8 @@ public class EntropyCreativeTab {
 
     static final DeferredHolder<CreativeModeTab, CreativeModeTab> ENTROPY_TAB = ENTROPY_CREATIVE_TAB.register("entropy_tab", () -> CreativeModeTab.builder()
             .title(net.minecraft.network.chat.Component.translatable("creativeta.entropy.entropy_tab"))
-            .withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> ScytheItem.SCYTHE.get().getDefaultInstance()).displayItems((parameters, output) ->{
-                output.accept(ScytheItem.SCYTHE.get());
+            .withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> EntropyItems.SCYTHE.get().getDefaultInstance()).displayItems((parameters, output) ->{
+                output.accept(EntropyItems.SCYTHE.get());
             }).build());
 
     public static void register(IEventBus bus) {

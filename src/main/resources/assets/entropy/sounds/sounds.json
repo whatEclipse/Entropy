@@ -1,0 +1,34 @@
+{
+  "entropy:blood_hit": {
+    "sounds": [
+      {
+        "name": "entropy:blood_hit",
+        "type": "sound_event"
+      }
+    ]
+  },
+  "entropy:scythe_spewing_0": {
+    "sounds": [
+      {
+        "name": "entropy:scythe_spewing_0",
+        "type": "sound_event"
+      }
+    ]
+  },
+  "entropy:scythe_spewing_1": {
+    "sounds": [
+      {
+        "name": "entropy:scythe_spewing_1",
+        "type": "sound_event"
+      }
+    ]
+  },
+  "entropy:scythe_spewing_2": {
+    "sounds": [
+      {
+        "name": "entropy:scythe_spewing_2",
+        "type": "sound_event"
+      }
+    ]
+  }
+}

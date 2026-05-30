@@ -19,8 +19,6 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.whateclipse.entropy.creative.EntropyCreativeTab;
-import net.whateclipse.entropy.enchantments.EntropyEnchantmentRegister;
-import net.whateclipse.entropy.enchantments.EntropyEnchantments;
 import net.whateclipse.entropy.entities.EntropyEntities;
 import net.whateclipse.entropy.items.EntropyItems;
 import net.whateclipse.entropy.particles.EntropyParticles;
@@ -54,7 +52,6 @@ public class Entropy {
         EntropyEntities.register(modEventBus);
         EntropyCreativeTab.register(modEventBus);
         EntropySounds.register(modEventBus);
-        EntropyEnchantmentRegister.register(modEventBus);
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (EntropyMain) to respond directly to events.
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.

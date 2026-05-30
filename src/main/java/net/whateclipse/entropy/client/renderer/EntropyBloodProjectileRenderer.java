@@ -16,7 +16,7 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import javax.annotation.Nonnull;
 
-public class EntropyBloodProjectileRenderer extends EntityRenderer<EntropyBloodProjectileEntity>{
+public class EntropyBloodProjectileRenderer extends EntityRenderer<EntropyBloodProjectileEntity> {
 
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Entropy.MODID,
             "textures/entity/blood_projectile.png");
@@ -34,7 +34,10 @@ public class EntropyBloodProjectileRenderer extends EntityRenderer<EntropyBloodP
         poseStack.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entity.yRotO, entity.getYRot()) - 90.0F));
         poseStack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entity.xRotO, entity.getXRot())));
 
-        // Rotate the texture by 90° as requested
+        // Apply the random Y rotation offset so each projectile looks different
+        poseStack.mulPose(Axis.XP.rotationDegrees(entity.getRandomYRot()));
+
+        // Rotate the texture by 90°
         poseStack.mulPose(Axis.YP.rotationDegrees(90.0F));
 
         VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
@@ -42,20 +45,22 @@ public class EntropyBloodProjectileRenderer extends EntityRenderer<EntropyBloodP
         Matrix4f matrix4f = posestack$pose.pose();
         Matrix3f matrix3f = posestack$pose.normal();
 
-        // Texture 32x32. We map it to a 2x2 block area.
-        // U=0..1 is the 32px side (Width/Z), V=0..1 is the 32px side (Length/X).
-        // Centered box: x from -1.0 to 1.0, z from -1.0 to 1.0.
-        float x0 = -1.0F; // Back
-        float x1 = 1.0F; // Front
-        float z0 = -1.0F; // Left
-        float z1 = 1.0F; // Right
+        float x0 = -1.0F;
+        float x1 = 1.0F;
+        float y0 = -1.0F; // bottom
+        float y1 =  1.0F; // top
 
-        // UVs: V=0 is Tip (x1), V=1 is Tail (x0). U=0 is Left (z0), U=1 is Right (z1).
-        // Order: Front-Left, Front-Right, Back-Right, Back-Left
-        this.vertex(matrix4f, matrix3f, vertexconsumer, x1, 0, z0, 0, 0, 0, 1, 0, packedLight);
-        this.vertex(matrix4f, matrix3f, vertexconsumer, x1, 0, z1, 1, 0, 0, 1, 0, packedLight);
-        this.vertex(matrix4f, matrix3f, vertexconsumer, x0, 0, z1, 1, 1, 0, 1, 0, packedLight);
-        this.vertex(matrix4f, matrix3f, vertexconsumer, x0, 0, z0, 0, 1, 0, 1, 0, packedLight);
+// Front face
+        this.vertex(matrix4f, matrix3f, vertexconsumer, x1, y1, 0, 0, 0, 0, 0, 1, packedLight);
+        this.vertex(matrix4f, matrix3f, vertexconsumer, x0, y1, 0, 1, 0, 0, 0, 1, packedLight);
+        this.vertex(matrix4f, matrix3f, vertexconsumer, x0, y0, 0, 1, 1, 0, 0, 1, packedLight);
+        this.vertex(matrix4f, matrix3f, vertexconsumer, x1, y0, 0, 0, 1, 0, 0, 1, packedLight);
+
+// Back face (reversed winding, normal flipped)
+        this.vertex(matrix4f, matrix3f, vertexconsumer, x1, y0, 0, 0, 1, 0, 0, -1, packedLight);
+        this.vertex(matrix4f, matrix3f, vertexconsumer, x0, y0, 0, 1, 1, 0, 0, -1, packedLight);
+        this.vertex(matrix4f, matrix3f, vertexconsumer, x0, y1, 0, 1, 0, 0, 0, -1, packedLight);
+        this.vertex(matrix4f, matrix3f, vertexconsumer, x1, y1, 0, 0, 0, 0, 0, -1, packedLight);
 
         poseStack.popPose();
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
@@ -77,5 +82,4 @@ public class EntropyBloodProjectileRenderer extends EntityRenderer<EntropyBloodP
     public ResourceLocation getTextureLocation(@Nonnull EntropyBloodProjectileEntity entity) {
         return TEXTURE;
     }
-
 }
